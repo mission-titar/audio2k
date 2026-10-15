@@ -1,0 +1,10 @@
+third_party/
+*.avi
+.venv/
+__pycache__/
+lab/**/data/
+lab/**/state/
+state/
+*.part
+*.mp3
+*.avi

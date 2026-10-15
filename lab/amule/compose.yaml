@@ -1,0 +1,26 @@
+services:
+  amule:
+    build:
+      context: .
+      additional_contexts:
+        # Défaut : amule-org master épinglé. Clone local : AMULE_SRC=../../third_party/amule
+        amule_src: ${AMULE_SRC:-https://github.com/amule-org/amule.git#7c62af3561eacd2cf768e302ec72ef3c2681870d}
+    image: audio2k-lab-amule
+    container_name: lab-amule
+    user: "1000:1000"
+    ports:
+      - "14662:4662/tcp"
+      - "14672:4672/udp"
+      - "14712:4712/tcp"
+    volumes:
+      - ./data:/data
+      - type: bind
+        source: "../../[TV] KERORO MISSION TITAR N°062A « Les demoiselles cambrioleuses » [Dimanche 21 septembre 2008 à 16H50 sur TELETOON].avi"
+        target: "/share/[TV] KERORO MISSION TITAR N°062A « Les demoiselles cambrioleuses » [Dimanche 21 septembre 2008 à 16H50 sur TELETOON].avi"
+        read_only: true
+    healthcheck:
+      test: ["CMD", "amulecmd", "-h", "127.0.0.1", "-p", "4712", "-P", "lab", "-c", "status"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 20s

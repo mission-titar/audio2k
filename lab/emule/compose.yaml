@@ -1,0 +1,23 @@
+services:
+  emule:
+    build: .
+    image: audio2k-lab-emule
+    container_name: lab-emule
+    user: "1000:1000"
+    init: true
+    stop_grace_period: 30s
+    ports:
+      - "24662:4662/tcp"
+      - "24672:4672/udp"
+    volumes:
+      - ./data:/data
+      - type: bind
+        source: "../../[TV] KERORO MISSION TITAR N°062A « Les demoiselles cambrioleuses » [Dimanche 21 septembre 2008 à 16H50 sur TELETOON].avi"
+        target: "/share/[TV] KERORO MISSION TITAR N°062A « Les demoiselles cambrioleuses » [Dimanche 21 septembre 2008 à 16H50 sur TELETOON].avi"
+        read_only: true
+    healthcheck:
+      test: ["CMD", "nc", "-z", "127.0.0.1", "4662"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 90s

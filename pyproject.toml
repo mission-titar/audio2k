@@ -1,0 +1,6 @@
+[project]
+name = "audio2k"
+version = "0.1.0"
+description = "PoC: téléchargement sélectif de la piste audio d'un AVI via eD2K"
+requires-python = ">=3.12"
+dependencies = []
